@@ -36,7 +36,7 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
-	public void run() {
+	public void mainMenu() {
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
@@ -57,7 +57,6 @@ public class VendingMachineCLI {
 					} else {
 						System.out.println(NO_CHANGE);
 					}
-					//place logic for writing temp/persistent logs here
 					FileIO fileIO = new FileIO();
 					fileIO.writeLog("log.txt",machine.getLogMessages());
 					System.exit(0);
@@ -73,14 +72,15 @@ public class VendingMachineCLI {
 				System.out.println(ENTER_MONEY_TO_FEED);
 				String moneyFeed = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
 				if (moneyFeed.equals(FEED_MONEY_OPTIONS[7]))
-					break; /**this does not always return to the main menu
+					mainMenu(); /**this does not always return to the main menu
 			 				-	if there is money, it goes to the purchase menu */
 				machine.feedMoney(moneyFeed);
 				System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
 				purchaseSwitch();
 			case PURCHASE_MENU_SELECT_PRODUCT:
 				System.out.println(SELECT_PRODUCT_CODE);
-				String productCode = (String) menu.getChoiceFromOptions(machine.getProducts().keySet().toArray()); /**we can use this, but it looks ugly :P */
+				String productCode = (String) menu.getChoiceFromOptions(machine.getProducts().keySet().toArray()); /**we can use this, but it looks ugly :P
+			 			we're also not supposed to change the menu class so either we accept the ugliness or write something different here?*/
 				System.out.println(machine.makePurchase(productCode));
 				System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
 				purchaseSwitch();
@@ -92,7 +92,7 @@ public class VendingMachineCLI {
 					System.out.println(NO_CHANGE);
 				}
 				/** I changed this because we're supposed to return to the main menu here*/ //System.exit(0);
-				break; /**this break has the same problem as above*/
+				mainMenu(); /**this break has the same problem as above*/
 		}
 	}
 }
