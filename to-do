@@ -3,6 +3,7 @@ missing functionality:
 - log the date and time, sorry I was lazy :P
 - make the return message dollar formatted, lazy me again
 - indicate that the product is sold out when displaying the vending machine, not just say zero left
+- challenge bit
 
 - unit tests
 -- rewrite read products because I broke it refactoring :|
@@ -33,7 +34,7 @@ We could
 -- if none of this makes sense don't worry about it, I can explain and/or work on it tomorrow!
 
 - right now VendingMachine prints messages to the console (in method feedMoney) - I think ideally we would reserve that for VendingMachineCLI?
-Maybe it doesn't matter but I had my VendingMachine methods pass a statement that could then be printed.
+the instructions say "Create as many of your classes as possible to be "testable" classes. Limit console input and output to as few classes as possible."
 
 - it would be fun/cute to display the vending machine more aesthetically
 
