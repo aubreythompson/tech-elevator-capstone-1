@@ -73,7 +73,7 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return name + " | " + slot + " | " + price + " | " + quantity + " left";
+        return slot + " | " + name + " | " + price + " | " + quantity + " left";
     }
 
     @Override

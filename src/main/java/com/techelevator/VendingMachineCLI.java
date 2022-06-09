@@ -26,9 +26,10 @@ public class VendingMachineCLI {
 	private static final String DIMES = "\nNickels: ";
 	private static final String PENNIES = "\nPennies: ";
 	private static final String NO_CHANGE = "No money detected in machine. No change dispensed.";
+	private static final String VENDING_MACHINE_SOURCE_FILE = "vendingmachine.csv";
 
 	private final Menu menu;
-	private final VendingMachine machine = new VendingMachine("vendingmachine.csv");
+	private final VendingMachine machine = new VendingMachine(VENDING_MACHINE_SOURCE_FILE);
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
@@ -41,7 +42,7 @@ public class VendingMachineCLI {
 			switch (choice) {
 				case MAIN_MENU_OPTION_DISPLAY_ITEMS:
 					//place logic for displaying products
-					for (Product product : machine.getProducts()) {
+					for (Product product : machine.getProducts().values()) {
 						System.out.println(product.toString());
 					}
 					break;

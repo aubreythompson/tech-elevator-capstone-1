@@ -1,22 +1,29 @@
 package com.techelevator;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VendingMachine {
     private double currentBalance = 0;
-    private List<Product> products;
+    private Map<String,Product> products;
 
     public VendingMachine(String productsFile){
         FileIO fileIO = new FileIO();
-        products = fileIO.readProducts(productsFile);
+        List<Product> productList = fileIO.readProducts(productsFile);
+        Map<String,Product> products = new HashMap<>();
+        for (Product product : productList) {
+            products.put(product.getSlot(),product);
+        }
+        this.products = products;
     }
 
     public Double getCurrentBalance(){
         return currentBalance;
     }
 
-    public List<Product> getProducts(){
+    public Map<String,Product> getProducts(){
         return products;
     }
     public double feedMoney(Object amount){
