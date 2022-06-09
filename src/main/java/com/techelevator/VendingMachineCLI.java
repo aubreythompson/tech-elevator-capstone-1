@@ -5,6 +5,7 @@ import com.techelevator.view.Menu;
 
 import java.sql.Statement;
 import java.text.NumberFormat;
+import java.util.List;
 
 public class VendingMachineCLI {
 
@@ -27,7 +28,7 @@ public class VendingMachineCLI {
 	private static final String NO_CHANGE = "No money detected in machine. No change dispensed.";
 
 	private final Menu menu;
-	private final VendingMachine machine = new VendingMachine();
+	private final VendingMachine machine = new VendingMachine("vendingmachine.csv");
 
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
@@ -39,7 +40,10 @@ public class VendingMachineCLI {
 
 			switch (choice) {
 				case MAIN_MENU_OPTION_DISPLAY_ITEMS:
-					//place logic for reading out input file here
+					//place logic for displaying products
+					for (Product product : machine.getProducts()) {
+						System.out.println(product.toString());
+					}
 					break;
 				case MAIN_MENU_OPTION_PURCHASE:
 					purchaseSwitch();

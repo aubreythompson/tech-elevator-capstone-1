@@ -72,6 +72,11 @@ public abstract class Product {
     }
 
     @Override
+    public String toString() {
+        return name + " | " + slot + " | " + price + " | " + quantity + " left";
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

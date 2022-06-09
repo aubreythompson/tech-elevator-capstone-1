@@ -1,12 +1,24 @@
 package com.techelevator;
 
+
+import java.util.List;
+
 public class VendingMachine {
     private double currentBalance = 0;
+    private List<Product> products;
+
+    public VendingMachine(String productsFile){
+        FileIO fileIO = new FileIO();
+        products = fileIO.readProducts(productsFile);
+    }
 
     public Double getCurrentBalance(){
         return currentBalance;
     }
 
+    public List<Product> getProducts(){
+        return products;
+    }
     public double feedMoney(Object amount){
         if (amount == null){
             System.out.println("Invalid dollar amount entered, please try again");
