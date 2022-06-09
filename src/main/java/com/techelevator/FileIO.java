@@ -25,6 +25,4 @@ public class FileIO {
 
         return products;
     }
-
-
 }
