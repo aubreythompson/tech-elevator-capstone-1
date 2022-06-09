@@ -25,4 +25,14 @@ public class FileIO {
 
         return products;
     }
+
+    public void writeLog(String file, List<String> logMessages) {
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(file))) {
+            for (String line : logMessages) {
+                writer.println(line);
+            }
+        } catch(FileNotFoundException e) {
+            System.out.println("Destination file not found, program exiting");
+        }
+    }
 }

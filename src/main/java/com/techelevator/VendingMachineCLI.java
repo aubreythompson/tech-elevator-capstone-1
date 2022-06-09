@@ -58,6 +58,8 @@ public class VendingMachineCLI {
 						System.out.println(NO_CHANGE);
 					}
 					//place logic for writing temp/persistent logs here
+					FileIO fileIO = new FileIO();
+					fileIO.writeLog("log.txt",machine.getLogMessages());
 					System.exit(0);
 			}
 		}

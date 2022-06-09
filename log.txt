@@ -1,0 +1,5 @@
+date and time FEED MONEY: 0.0 20.0
+date and time Grain Waves A3 20.0 17.25
+date and time Cloud Popcorn A4 17.25 13.6
+date and time Grain Waves A3 13.6 10.85
+date and time MAKE CHANGE: 10.85 0.0
