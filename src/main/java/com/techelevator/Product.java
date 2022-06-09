@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.util.Objects;
+
 public abstract class Product {
 
     private static final int STARTING_QUANTITY = 5;
@@ -67,5 +69,18 @@ public abstract class Product {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(product.price, price) == 0 && quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(sound, product.sound) && Objects.equals(slot, product.slot) && Objects.equals(type, product.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(price, name, sound, slot, type, quantity);
     }
 }
