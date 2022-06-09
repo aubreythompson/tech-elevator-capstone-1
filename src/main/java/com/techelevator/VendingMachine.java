@@ -42,6 +42,31 @@ public class VendingMachine {
         return -1;
     }
 
+    public String makePurchase(String productCode) {
+        Product product = this.products.get(productCode);
+        if (this.currentBalance >= product.getPrice()) {
+             boolean purchaseSuccessful = this.dispenseProduct(productCode);
+             if (purchaseSuccessful) {
+                 this.currentBalance -= product.getPrice();
+                 return "You've purchased " + product.getName() + " for " + product.getPrice() + "! " + product.getReturnMessage();
+             } else {
+                 return product.getName() + " is sold out! Please try again.";
+             }
+        } else {
+            return "Insufficient funds. Please try again.";
+        }
+    }
+
+    public boolean dispenseProduct(String productCode) {
+        Product product = this.products.get(productCode);
+        if (!product.isSoldOut()) {
+            product.setQuantity(product.getQuantity()-1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int[] makeChange(){
         double[] changeValue = {.25, .10, .05, .01};
         int quarters = 0;

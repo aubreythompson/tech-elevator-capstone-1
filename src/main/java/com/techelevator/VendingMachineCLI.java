@@ -14,12 +14,13 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
 	private static final String PURCHASE_MENU_FEED_MONEY = "Feed Money";
-	private static final String PURCHASE_MENU_SELECT_PRODCUT = "Select Product:";
+	private static final String PURCHASE_MENU_SELECT_PRODUCT = "Select Product";
 	private static final String PURCHASE_MENU_FINISH_TRANSACTION = "Finish Transaction";
-	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_FEED_MONEY, PURCHASE_MENU_SELECT_PRODCUT, PURCHASE_MENU_FINISH_TRANSACTION};
+	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_FEED_MONEY, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH_TRANSACTION};
 	private static final String ENTER_MONEY_TO_FEED = "Select Amount To Feed";
 	private static final String[] FEED_MONEY_OPTIONS = {"$1", "$2", "$5", "$10", "$20", "$50", "$100", "Return to Main Menu"};
-	private static final String CURRENT_MONEY_PROVIDED = "\nCurrnet Money Provided: ";
+	private static final String SELECT_PRODUCT_CODE = "Please select a product code:";
+	private static final String CURRENT_MONEY_PROVIDED = "\nCurrent Money Provided: ";
 	private static final String CHANGE_PROVIDED = "Change Provided:";
 	private static final String QUARTERS = "\nQuarters: ";
 	private static final String NICKELS = "\nDimes: ";
@@ -41,7 +42,7 @@ public class VendingMachineCLI {
 
 			switch (choice) {
 				case MAIN_MENU_OPTION_DISPLAY_ITEMS:
-					//place logic for displaying products
+					System.out.println("Product Code | Name | Price | Quantity Remaining");
 					for (Product product : machine.getProducts().values()) {
 						System.out.println(product.toString());
 					}
@@ -70,13 +71,17 @@ public class VendingMachineCLI {
 				System.out.println(ENTER_MONEY_TO_FEED);
 				String moneyFeed = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
 				if (moneyFeed.equals(FEED_MONEY_OPTIONS[7]))
-					break;
+					break; /**this does not always return to the main menu
+			 				-	if there is money, it goes to the purchase menu */
 				machine.feedMoney(moneyFeed);
 				System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
 				purchaseSwitch();
-			case PURCHASE_MENU_SELECT_PRODCUT:
-				//get user input for selection
-				break;
+			case PURCHASE_MENU_SELECT_PRODUCT:
+				System.out.println(SELECT_PRODUCT_CODE);
+				String productCode = (String) menu.getChoiceFromOptions(machine.getProducts().keySet().toArray()); /**we can use this, but it looks ugly :P */
+				System.out.println(machine.makePurchase(productCode));
+				System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
+				purchaseSwitch();
 			case PURCHASE_MENU_FINISH_TRANSACTION:
 				if (machine.getCurrentBalance() > 0){
 					int [] change = machine.makeChange();
@@ -84,8 +89,8 @@ public class VendingMachineCLI {
 				} else{
 					System.out.println(NO_CHANGE);
 				}
-				//place logic for writing temp/persistent logs here
-				System.exit(0);
+				/** I changed this because we're supposed to return to the main menu here*/ //System.exit(0);
+				break; /**this break has the same problem as above*/
 		}
 	}
 }
