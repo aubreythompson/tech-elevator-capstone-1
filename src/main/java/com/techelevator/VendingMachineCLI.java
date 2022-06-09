@@ -28,6 +28,7 @@ public class VendingMachineCLI {
 	private static final String PENNIES = "\nPennies: ";
 	private static final String NO_CHANGE = "No money detected in machine. No change dispensed.";
 	private static final String VENDING_MACHINE_SOURCE_FILE = "vendingmachine.csv";
+	private static final String VENDING_MACHINE_LOG_FILE = "log.txt";
 
 	private final Menu menu;
 	private final VendingMachine machine = new VendingMachine(VENDING_MACHINE_SOURCE_FILE);
@@ -37,6 +38,7 @@ public class VendingMachineCLI {
 	}
 
 	public void mainMenu() {
+		/** is this while loop important? lol */
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
@@ -57,8 +59,7 @@ public class VendingMachineCLI {
 					} else {
 						System.out.println(NO_CHANGE);
 					}
-					FileIO fileIO = new FileIO();
-					fileIO.writeLog("log.txt",machine.getLogMessages());
+					machine.writeLog(VENDING_MACHINE_LOG_FILE);
 					System.exit(0);
 			}
 		}
@@ -72,8 +73,7 @@ public class VendingMachineCLI {
 				System.out.println(ENTER_MONEY_TO_FEED);
 				String moneyFeed = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
 				if (moneyFeed.equals(FEED_MONEY_OPTIONS[7]))
-					mainMenu(); /**this does not always return to the main menu
-			 				-	if there is money, it goes to the purchase menu */
+					mainMenu();
 				machine.feedMoney(moneyFeed);
 				System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
 				purchaseSwitch();
@@ -91,8 +91,7 @@ public class VendingMachineCLI {
 				} else{
 					System.out.println(NO_CHANGE);
 				}
-				/** I changed this because we're supposed to return to the main menu here*/ //System.exit(0);
-				mainMenu(); /**this break has the same problem as above*/
+				mainMenu();
 		}
 	}
 }

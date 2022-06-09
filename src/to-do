@@ -1,0 +1,46 @@
+missing functionality:
+
+- log the date and time, sorry I was lazy :P
+- make the return message dollar formatted, lazy me again
+- indicate that the product is sold out when displaying the vending machine, not just say zero left
+
+- unit tests
+-- rewrite read products because I broke it refactoring :|
+-- logging
+-- make change
+-- feed money
+-- dispense product
+
+- handling erroneous user input? or do we think the menu class handles it well enough?
+
+bugs:
+
+- trying to make a purchase with no funds makes the balance -$0.01 (or slightly off, according to the log).
+this seems to make the makeChange function break, e.g. given $2.69 it returned 10 quarters, 2 nickels and 5 pennies.
+(I assume that is the issue, maybe the makeChange function is broken in other cases, should test that.)
+- when exiting, it says there is no money detected. that's because we always give change when finishing transaction,
+so seems redundant. a small thing.
+
+
+fine but ideally should be cleaner:
+
+- With the way the menu class is written (as I understand it) we pass it a list of options and it displays those options
+in a numbered list, and the user gives a number to select and option.
+The instructions say the user should give a product code to select the option (which I interpreted to be the slot, like
+on an irl vending machine). so the way it is currently displays a numbered list of product codes. that seems very silly.
+I made the list of products in vending machine a map with keys as the slot so we could get products by their code.
+(aside: we should standardize the use of code/slot :P my bad)
+We could
+-- write our own UI to take the actual product code as user input and ignore the menu class for that functionality
+-- make the product keys something different, like the name, or the full string of the product?
+
+- right now VendingMachine prints messages to the console (in method feedMoney) - I think ideally we would reserve that for VendingMachineCLI?
+Maybe it doesn't matter but I had my VendingMachine methods pass a statement that could then be printed.
+
+- it would be fun/cute to display the vending machine more aesthetically
+
+
+Questions
+- is our code maximally loosely coupled? I changed it so that only VendingMachine interacts with IO like we have in
+our diagram. I think everything else needs to talk to each other?
+

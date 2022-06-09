@@ -1,9 +1,2 @@
-date and time FEED MONEY: 0.0 50.0
-date and time Triplemint D4 50.0 49.25
-date and time Cloud Popcorn A4 49.25 45.6
-date and time MAKE CHANGE: 45.6 0.0
-date and time FEED MONEY: -0.009999999999998585 4.990000000000001
-date and time Cloud Popcorn A4 4.990000000000001 1.3400000000000012
-date and time FEED MONEY: 1.3400000000000012 6.340000000000002
-date and time Cloud Popcorn A4 6.340000000000002 2.6900000000000017
-date and time MAKE CHANGE: 2.6900000000000017 0.0
+date and time FEED MONEY: 0.0 5.0
+date and time MAKE CHANGE: 5.0 0.0

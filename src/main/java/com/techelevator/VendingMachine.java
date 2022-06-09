@@ -10,12 +10,13 @@ public class VendingMachine {
     private double currentBalance = 0;
     private Map<String,Product> products;
     private List<String> logMessages = new ArrayList<>();
+    private FileIO fileIO = new FileIO();
 
-    public VendingMachine(String productsFile){
-        FileIO fileIO = new FileIO();
-        List<Product> productList = fileIO.readProducts(productsFile);
+    public VendingMachine(String sourceFile){
+        List<String[]> productsList = fileIO.readProducts(sourceFile);
         Map<String,Product> products = new HashMap<>();
-        for (Product product : productList) {
+        for (String[] productArray : productsList) {
+            Product product = Product.create(productArray[1],Double.parseDouble(productArray[2]),productArray[0],productArray[3]);
             products.put(product.getSlot(),product);
         }
         this.products = products;
@@ -23,10 +24,6 @@ public class VendingMachine {
 
     public Double getCurrentBalance(){
         return currentBalance;
-    }
-
-    public List<String> getLogMessages() {
-        return logMessages;
     }
 
     public Map<String,Product> getProducts(){
@@ -41,7 +38,7 @@ public class VendingMachine {
         try{
             int moneyFed = Integer.parseInt(amount.toString().replace("$", ""));
             this.currentBalance += moneyFed;
-            log(oldBalance,this.currentBalance,"FEED MONEY:");
+            addToLog(oldBalance,this.currentBalance,"FEED MONEY:");
             return currentBalance;
         } catch (NumberFormatException e){
 
@@ -58,7 +55,7 @@ public class VendingMachine {
                  double oldBalance = this.currentBalance;
                  this.currentBalance -= product.getPrice();
                  double newBalance = this.currentBalance;
-                 this.log(oldBalance,newBalance,product.getName() + " " + product.getSlot());
+                 this.addToLog(oldBalance,newBalance,product.getName() + " " + product.getSlot());
                  return "You've purchased " + product.getName() + " for " + product.getPrice() + "! " + product.getReturnMessage();
              } else {
                  return product.getName() + " is sold out! Please try again.";
@@ -76,10 +73,6 @@ public class VendingMachine {
         } else {
             return false;
         }
-    }
-
-    public void log(double oldBalance, double newBalance,String logInfo) {
-        this.logMessages.add("date and time " +  logInfo + " " + oldBalance + " " + newBalance);
     }
 
     public int[] makeChange(){
@@ -105,7 +98,15 @@ public class VendingMachine {
             }
         }
         int[] change = {quarters, dimes, nickels, pennies};
-        log(oldBalance,0,"MAKE CHANGE:");
+        addToLog(oldBalance,0,"MAKE CHANGE:");
         return change;
+    }
+
+    public void addToLog(double oldBalance, double newBalance,String logInfo) {
+        this.logMessages.add("date and time " +  logInfo + " " + oldBalance + " " + newBalance);
+    }
+
+    public void writeLog(String fileName) {
+        fileIO.writeLog(fileName,this.logMessages);
     }
 }

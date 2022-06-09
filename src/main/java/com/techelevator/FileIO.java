@@ -5,18 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.techelevator.Product;
-
 public class FileIO {
 
-    public List<Product> readProducts(String file){
-        List<Product> products = new ArrayList<>();
+    public List<String[]> readProducts(String file){
+        List<String[]> products = new ArrayList<>();
         try (Scanner fileScanner = new Scanner(new File(file))) {
             while (fileScanner.hasNextLine()) {
                 String productText = fileScanner.nextLine();
                 String[] productArray = productText.split("\\|");
-                Product product = Product.create(productArray[1],Double.parseDouble(productArray[2]),productArray[0],productArray[3]);
-                products.add(product);
+                products.add(productArray);
             }
 
         } catch (FileNotFoundException e) {
