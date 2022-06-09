@@ -11,11 +11,12 @@ public abstract class Product {
     private String type;
     private int quantity = STARTING_QUANTITY;
 
-    public Product(String name,double price,String slot,String type){
+    public Product(String name,double price,String slot,String type,String sound){
         this.name = name;
         this.price = price;
         this.slot = slot;
         this.type = type;
+        this.sound = sound;
     }
 
     public double getPrice() {
