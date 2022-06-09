@@ -18,9 +18,6 @@ bugs:
 - trying to make a purchase with no funds makes the balance -$0.01 (or slightly off, according to the log).
 this seems to make the makeChange function break, e.g. given $2.69 it returned 10 quarters, 2 nickels and 5 pennies.
 (I assume that is the issue, maybe the makeChange function is broken in other cases, should test that.)
-- when exiting, it says there is no money detected. that's because we always give change when finishing transaction,
-so seems redundant. a small thing.
-
 
 fine but ideally should be cleaner:
 
@@ -33,6 +30,7 @@ I made the list of products in vending machine a map with keys as the slot so we
 We could
 -- write our own UI to take the actual product code as user input and ignore the menu class for that functionality
 -- make the product keys something different, like the name, or the full string of the product?
+-- if none of this makes sense don't worry about it, I can explain and/or work on it tomorrow!
 
 - right now VendingMachine prints messages to the console (in method feedMoney) - I think ideally we would reserve that for VendingMachineCLI?
 Maybe it doesn't matter but I had my VendingMachine methods pass a statement that could then be printed.
