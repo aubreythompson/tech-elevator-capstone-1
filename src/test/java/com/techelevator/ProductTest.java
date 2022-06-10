@@ -6,15 +6,16 @@ public class ProductTest {
 
 
     @Test
-    public void create_makes_a_product_object() {
+    public void product_of_quantity_zero_returns_sold_out_message() {
         //given
-        Product gum = Product.create("Gum",.5,"A1","Gum");
+        Product candy = Product.create("Candy",0.5,"A1","Candy");
 
         //when
-        String returnMessage = gum.getReturnMessage();
+        candy.setQuantity(0);
 
         //then
-        Assert.assertEquals("Chew Chew, Yum!",returnMessage);
+        Assert.assertTrue(candy.isSoldOut());
+        Assert.assertEquals("A1 | Candy | 0.5 | SOLD OUT",candy.toString());
     }
 
     @Test

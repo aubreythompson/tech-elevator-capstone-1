@@ -76,7 +76,7 @@ public abstract class Product {
         if (!isSoldOut()){
             return slot + " | " + name + " | " + price + " | " + quantity + " left";
         } else {
-            return slot + " | " + name + " | " + price + " | " + " SOLD OUT";
+            return slot + " | " + name + " | " + price + " | " + "SOLD OUT";
         }
     }
 
