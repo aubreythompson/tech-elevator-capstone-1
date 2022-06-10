@@ -2,9 +2,7 @@ package com.techelevator;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class FileIOTest {
 
@@ -46,6 +44,27 @@ public class FileIOTest {
         }
 
     }
-    /** not sure how to test writing */
+    @Test
+    public void read_sales_log_creates_hashmap_correctly() {
+        //given
+        FileIO fileIO = new FileIO();
+
+        //when
+        HashMap<String,Integer> actualProductValues = fileIO.readSalesLog("salesLogTest.txt");
+        HashMap<String,Integer> expectedProductValues = new HashMap<>();
+        expectedProductValues.put("Cola",6);
+        expectedProductValues.put("Heavy",1);
+        expectedProductValues.put("Cloud Popcorn",1);
+        //then
+        Assert.assertEquals(expectedProductValues.size(),actualProductValues.size());
+        Assert.assertTrue(Arrays.equals(expectedProductValues.values().toArray(),actualProductValues.values().toArray()));
+        for (String productName : expectedProductValues.keySet()) {
+            Assert.assertEquals(expectedProductValues.get(productName),actualProductValues.get(productName));
+        }
+    }
+    /** was not sure how to test writing, found this on a stack overflow: https://stackoverflow.com/questions/14294811/how-to-test-write-to-file-in-java */
+
+
+
 
 }
