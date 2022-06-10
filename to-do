@@ -9,20 +9,21 @@ missing functionality:
                     //amount seems legit
 -- feed money       //basically same as make change, but this one has been more consistantly solid for me
 -- dispense product     //What's going on with this one?
+-- is something weird happening, or are you just wondering why it's here? I'm just listing the things we have to test, whether they're working or not
 
 - handling erroneous user input? or do we think the menu class handles it well enough?  //I think the menu is pretty good.
                                                                                         //However, hardware does fail. RAM
                                                                                         //is pretty reliable. Mass storage devices not so much.
                                                                                         //You know they'll be picky, we gatta do it :/. Friday's looking like
                                                                                         //keep trying to break our stuff and further fix it day.
+                                                                                        -- I'm not actually sure how to handle it better - I guess I'll try breaking it and see what happens.
+                                                                                        -- no matter what they put in, it comes back with "___ is not a valid option"
+                                                                                        -- as long as we use the menu class, which I guess we are considering not ...
+
 
 bugs:
 
-    //Think it's taken care of? Still keep an eye out. Main thing I learned tonight is java is messy when it comes to dealing with
-    //floating point numbers. More calculations your program handles before restarting, worse it seems to get.
-- trying to make a purchase with no funds makes the balance -$0.01 (or slightly off, according to the log).
-this seems to make the makeChange function break, e.g. given $2.69 it returned 10 quarters, 2 nickels and 5 pennies.
-(I assume that is the issue, maybe the makeChange function is broken in other cases, should test that.)
+    - continue to test makeChange
 
 fine but ideally should be cleaner:
 
@@ -47,9 +48,7 @@ We could
     //Think I got it in VendingMachineCLI now. It does indicate that null should always be false, but I'd say just leave it for now
     //In case we think of some different way we have to go about getting the data when we make whatever potential changes
     //to the UI
- 
-- right now VendingMachine prints messages to the console (in method feedMoney) - I think ideally we would reserve that for VendingMachineCLI?
-the instructions say "Create as many of your classes as possible to be "testable" classes. Limit console input and output to as few classes as possible."
+ - not sure what you mean - where does it say null should always be false? looks better!
 
     //I do agree. Let's get all the functionality in the program first, make sure we break proof it as much as we can, and then
     //I'm totally down to figure out how to go about displaying things in a less depressing way haha
