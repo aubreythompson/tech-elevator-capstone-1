@@ -41,6 +41,10 @@ public class VendingMachine {
     public Map<String,Product> getProducts(){
         return products;
     }
+
+    public List<String> getLogMessages() {
+        return logMessages;
+    }
     public BigDecimal feedMoney(Object amount){
         if (amount == null){
             return null;
@@ -123,7 +127,9 @@ public class VendingMachine {
     public void addToLog(BigDecimal oldBalance, BigDecimal newBalance,String logInfo) {
         LocalDateTime time = LocalDateTime.now();
         String dateTime = time.format(dateTimeFormatter);
-        this.logMessages.add(dateTime + ": " +  logInfo + " " + NumberFormat.getCurrencyInstance().format(oldBalance) + " " + NumberFormat.getCurrencyInstance().format(newBalance));
+        if (logInfo!=null && oldBalance!=null && newBalance!=null){
+            this.logMessages.add(dateTime + ": " +  logInfo + " " + NumberFormat.getCurrencyInstance().format(oldBalance) + " " + NumberFormat.getCurrencyInstance().format(newBalance));
+        }
     }
 
     public void writeLog(String fileName) {

@@ -4,10 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class VendingMachineTest {
    // private VendingMachine machine;
@@ -16,6 +16,8 @@ public class VendingMachineTest {
     private String TEST_PRODUCT_NAME = "Potato Crisps";
     private double TEST_PRODUCT_PRICE = 3.05;
     private String TEST_PRODUCT_TYPE = "Chip";
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
+
 
 
     /** constructor test*/
@@ -216,9 +218,72 @@ public class VendingMachineTest {
     }
 
     /** addToLog tests*/
-    ///feedmoney adds to log
-    ///makechange adds to log
-    ///makepurchase adds to log
+    @Test
+    public void add_feed_money_line_directly_to_log() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        machine.addToLog(new BigDecimal(0),new BigDecimal(10), "FEED MONEY:");
+
+        LocalDateTime time = LocalDateTime.now();
+        String dateTime = time.format(dateTimeFormatter);
+        List<String> expectedLogMessages = new ArrayList<>();
+        expectedLogMessages.add(dateTime + ": FEED MONEY: $0.00 $10.00");
+
+        List<String> actualLogMessages = machine.getLogMessages();
+
+        Assert.assertTrue(expectedLogMessages.get(0).equals(actualLogMessages.get(0)));
+
+    }
+
+    @Test
+    public void add_log_adds_nothing_given_null_message() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        machine.addToLog(new BigDecimal(0),new BigDecimal(0), null);
+
+        List<String> actualLogMessages = machine.getLogMessages();
+        List<String> expectedLogMessages = new ArrayList<>();
+
+        Assert.assertEquals(expectedLogMessages,actualLogMessages);
+
+    }
+    @Test
+    public void add_log_adds_nothing_given_null_balance() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        machine.addToLog(null,new BigDecimal(0), "FEED MONEY:");
+
+        List<String> actualLogMessages = machine.getLogMessages();
+        List<String> expectedLogMessages = new ArrayList<>();
+
+        Assert.assertEquals(expectedLogMessages,actualLogMessages);
+
+    }
+    ///calling feedmoney, makepurchase and makechange adds to log
+    @Test
+    public void feed_money_and_make_purchase_and_make_change_adds_to_log() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        machine.feedMoney(10);
+        machine.makePurchase(TEST_PRODUCT);
+        machine.makeChange();
+
+        LocalDateTime time = LocalDateTime.now();
+        String dateTime = time.format(dateTimeFormatter);
+        List<String> expectedLogMessages = new ArrayList<>();
+        expectedLogMessages.add(dateTime + ": FEED MONEY: $0.00 $10.00");
+        expectedLogMessages.add(dateTime + ": "+TEST_PRODUCT_NAME + " " + TEST_PRODUCT+ " $10.00 $6.95");
+        expectedLogMessages.add(dateTime + ": MAKE CHANGE: $6.95 $0.00");
+
+        List<String> actualLogMessages = machine.getLogMessages();
+
+        Assert.assertEquals(expectedLogMessages.size(),actualLogMessages.size());
+        for (int i = 0; i < expectedLogMessages.size(); i++) {
+            Assert.assertTrue(expectedLogMessages.get(i).equals(actualLogMessages.get(i)));
+        }
+
+
+    }
 
     /**makePurchase tests*/
     @Test
