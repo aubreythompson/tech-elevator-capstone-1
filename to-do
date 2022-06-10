@@ -1,11 +1,5 @@
 missing functionality:
 
-- log the date and time, sorry I was lazy :P            //looks good finally. Weird bug took up some time
-- make the return message dollar formatted, lazy me again       //completed
-- indicate that the product is sold out when displaying the vending machine, not just say zero left     //Haven't extensively tested, but seems to work fine
-- challenge bit         //Haven't extensively tested either, but it does appear to be working well. update number sold if they are.
-                        //Keep an eye on it for a bit just in case it does something funky.
-
 - unit tests        //I imagine this'll be most of Friday's work. We can just divide up the different classes so we don't get clashes or do whatever.
 -- rewrite read products because I broke it refactoring :|      //haha, nothing to say but that's rough buddy.
                                                                 //https://c.tenor.com/W6gco8m0SIkAAAAC/avatar-the-last-airbender.gif
@@ -53,8 +47,7 @@ We could
     //Think I got it in VendingMachineCLI now. It does indicate that null should always be false, but I'd say just leave it for now
     //In case we think of some different way we have to go about getting the data when we make whatever potential changes
     //to the UI
-    //I did just realize though, probably need to add an option for the person to return to the purchase menu in case they hit the "feed money" option
-    //by accident
+ 
 - right now VendingMachine prints messages to the console (in method feedMoney) - I think ideally we would reserve that for VendingMachineCLI?
 the instructions say "Create as many of your classes as possible to be "testable" classes. Limit console input and output to as few classes as possible."
 
