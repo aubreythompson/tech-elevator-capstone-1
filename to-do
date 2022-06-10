@@ -1,15 +1,14 @@
 missing functionality:
 
 - unit tests        //I imagine this'll be most of Friday's work. We can just divide up the different classes so we don't get clashes or do whatever.
--- rewrite read products because I broke it refactoring :|      //haha, nothing to say but that's rough buddy.
-                                                                //https://c.tenor.com/W6gco8m0SIkAAAAC/avatar-the-last-airbender.gif
 -- logging  //Should be good to go. Again just something to keep an eye on
 -- make change      //I've tested the heck out of this, but every once in a while I was able to break it again, make another
                     //change and seemingly fix it. Just keep an eye on it when testing other stuff. Occasionally see if the change
                     //amount seems legit
 -- feed money       //basically same as make change, but this one has been more consistantly solid for me
 -- dispense product     //What's going on with this one?
--- is something weird happening, or are you just wondering why it's here? I'm just listing the things we have to test, whether they're working or not
+                        -- is something weird happening, or are you just wondering why it's here?
+                        --I'm just listing the things we have to test, whether they're working or not
 
 - handling erroneous user input? or do we think the menu class handles it well enough?  //I think the menu is pretty good.
                                                                                         //However, hardware does fail. RAM
