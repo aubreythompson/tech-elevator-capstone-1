@@ -50,7 +50,7 @@ public class FileIOTest {
         FileIO fileIO = new FileIO();
 
         //when
-        HashMap<String,Integer> actualProductValues = fileIO.readSalesLog("salesLogTest.txt");
+        HashMap<String,Integer> actualProductValues = fileIO.readSalesLog("salesLogReadTest.txt");
         HashMap<String,Integer> expectedProductValues = new HashMap<>();
         expectedProductValues.put("Cola",6);
         expectedProductValues.put("Heavy",1);
@@ -62,7 +62,6 @@ public class FileIOTest {
             Assert.assertEquals(expectedProductValues.get(productName),actualProductValues.get(productName));
         }
     }
-    /** was not sure how to test writing, found this on a stack overflow: https://stackoverflow.com/questions/14294811/how-to-test-write-to-file-in-java */
 
 
 

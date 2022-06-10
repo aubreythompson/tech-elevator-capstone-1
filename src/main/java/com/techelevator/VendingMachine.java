@@ -42,6 +42,9 @@ public class VendingMachine {
         return products;
     }
 
+    public List<String> getNamesOfItemSold() {
+        return namesOfItemSold;
+    }
     public List<String> getLogMessages() {
         return logMessages;
     }
@@ -132,12 +135,12 @@ public class VendingMachine {
         }
     }
 
-    public void writeLog(String fileName) {
-        fileIO.writeLog(fileName,this.logMessages);
+    public boolean writeLog(String fileName) {
+        return fileIO.writeLog(fileName,this.logMessages);
     }
 
-    public void writeSalesLog(String fileName){
-        fileIO.read_WritePersistentSalesLog(fileName, this.namesOfItemSold);
+    public boolean writeSalesLog(String fileName){
+        return fileIO.read_WritePersistentSalesLog(fileName, this.namesOfItemSold);
     }
 
     public HashMap<String,Integer> readSalesLog(String fileName){

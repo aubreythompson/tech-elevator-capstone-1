@@ -21,14 +21,22 @@ public class FileIO {
         return products;
     }
 
-    public void writeLog(String file, List<String> logMessages) {
+    public boolean writeLog(String file, List<String> logMessages) {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(file))) {
-            for (String line : logMessages) {
-                writer.println(line);
+            if (logMessages!=null && !logMessages.isEmpty()){
+                for (String line : logMessages) {
+                    writer.println(line);
+                }
+                return true;
+            } else {
+                System.out.println("No activity was detected, so no logs were written.");
+                return false;
             }
+
         } catch(FileNotFoundException e) {
             System.out.println("Destination file not found, program exiting");
         }
+        return false;
     }
 
     public boolean read_WritePersistentSalesLog(String file, List<String> todaysSales){
