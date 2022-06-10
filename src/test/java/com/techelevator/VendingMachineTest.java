@@ -157,10 +157,63 @@ public class VendingMachineTest {
 
     /**feedMoney tests*/
     ///feed negative
+    @Test
+    public void feed_money_returns_null_for_negative_input() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        BigDecimal moneyFeed = machine.feedMoney(-5);
+
+        Assert.assertEquals(null,moneyFeed);
+
+    }
     ///feed zero
+    @Test
+    public void feed_money_returns_null_for_0_input() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        BigDecimal moneyFeed = machine.feedMoney(0);
+
+        Assert.assertEquals(null,moneyFeed);
+
+    }
     ///feed String
-    ///feed int
-    ///feed double
+    @Test
+    public void feed_money_returns_null_for_string_with_decimal() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        BigDecimal moneyFeed = machine.feedMoney("$10.0");
+
+        Assert.assertEquals(null,moneyFeed);
+
+    }
+    @Test
+    public void feed_money_returns_null_for_string_with_dollars() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        BigDecimal moneyFeed = machine.feedMoney("10 dollars");
+
+        Assert.assertEquals(null,moneyFeed);
+
+    }
+
+    @Test
+    public void feed_money_returns_null_given_double() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        BigDecimal moneyFeed = machine.feedMoney(10.0);
+
+        Assert.assertEquals(null,moneyFeed);
+
+    }
+    @Test
+    public void feed_money_returns_correct_amount_given_int() {
+        VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
+
+        BigDecimal moneyFeed = machine.feedMoney(15);
+
+        Assert.assertEquals(15,moneyFeed.floatValue(),.001);
+
+    }
 
     /** addToLog tests*/
     ///feedmoney adds to log

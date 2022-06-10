@@ -1,4 +1,5 @@
-Cola|5
+Cola|6
+Heavy|1
 Cloud Popcorn|1
 Triplemint|2
 U-Chews|3

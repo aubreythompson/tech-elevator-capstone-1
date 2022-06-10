@@ -48,9 +48,11 @@ public class VendingMachine {
         BigDecimal oldBalance = getCurrentBalance();
         try{
             int moneyFed = Integer.parseInt(amount.toString().replace("$", ""));
-            this.currentBalance = this.currentBalance.add(new BigDecimal(moneyFed)).setScale(2, RoundingMode.HALF_EVEN);
-            addToLog(oldBalance,this.currentBalance,"FEED MONEY:");
-            return currentBalance;
+            if (moneyFed>0) {
+                this.currentBalance = this.currentBalance.add(new BigDecimal(moneyFed)).setScale(2, RoundingMode.HALF_EVEN);
+                addToLog(oldBalance, this.currentBalance, "FEED MONEY:");
+                return currentBalance;
+            }
         } catch (NumberFormatException e){
 
         }
