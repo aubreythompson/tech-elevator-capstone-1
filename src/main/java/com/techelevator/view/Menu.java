@@ -45,10 +45,35 @@ public class Menu {
 		out.println();
 		for (int i = 0; i < options.length; i++) {
 			int optionNum = i + 1;
-			out.println(optionNum + ") " + options[i]);
+			if (i < 3){
+				out.println(optionNum + ") " + options[i]);
+			}
 		}
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
 
+	public void purchaseMenuOptions(Object[] options){
+		out.println();
+		for (int i = 0; i < options.length; i++){
+			out.println(options[i]);
+		}
+		out.print(System.lineSeparator() + "please choose an option >>> ");
+		out.flush();
+	}
+
+	public Object purchaseInput(String[] options){
+		Object choice = null;
+
+		purchaseMenuOptions(options);
+		String userInput = in.nextLine();
+		choice = userInput;
+		for (String key : options){
+			if (key.substring(0,2).toUpperCase().equals(choice.toString().toUpperCase())){
+				return choice;
+			}
+		}
+		out.println(System.lineSeparator() + "*** " + userInput + " is not a valid option ***" + System.lineSeparator());
+		return null;
+	}
 }

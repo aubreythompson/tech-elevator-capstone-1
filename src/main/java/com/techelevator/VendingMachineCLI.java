@@ -1,21 +1,18 @@
 package com.techelevator;
 
-import com.sun.jdi.PrimitiveValue;
 import com.techelevator.view.Menu;
 
 import java.math.BigDecimal;
-import java.sql.Statement;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
+	private static final String SUPER_SECRET_SALES_LOG = "";
+	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT, SUPER_SECRET_SALES_LOG };
 	private static final String PURCHASE_MENU_FEED_MONEY = "Feed Money";
 	private static final String PURCHASE_MENU_SELECT_PRODUCT = "Select Product";
 	private static final String PURCHASE_MENU_FINISH_TRANSACTION = "Finish Transaction";
@@ -72,6 +69,14 @@ public class VendingMachineCLI {
 					machine.writeLog(VENDING_MACHINE_LOG_FILE);
 					machine.writeSalesLog(VENDING_MACHINE_SALES_LOG_FILE);
 					System.exit(0);
+				case SUPER_SECRET_SALES_LOG:
+					HashMap<String, Integer> logMap = machine.readSalesLog(VENDING_MACHINE_SALES_LOG_FILE);
+					String totalSales = logMap.entrySet().toString();
+					totalSales = totalSales.substring(1, totalSales.length()-1);
+					String[] totalSalesArray = totalSales.split(", ");
+					for (String line : totalSalesArray){
+						System.out.println(line.replace("=", "|"));
+					}
 			}
 		}
 	}
@@ -94,9 +99,15 @@ public class VendingMachineCLI {
 				purchaseSwitch();
 			case PURCHASE_MENU_SELECT_PRODUCT:
 				System.out.println(SELECT_PRODUCT_CODE);
-				String productCode = (String) menu.getChoiceFromOptions(machine.getProducts().keySet().toArray());
-				System.out.println(machine.makePurchase(productCode));
-				System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
+				String productKeys = machine.getProducts().keySet().toString();
+				//had to make substring to remove brackets that for some reason were placed in string when getting the keysets
+				//so that the for loop below could properly read the values (some values were being assigned to null due to A4 really being A4] in the array)
+				productKeys = productKeys.substring(1, productKeys.length()-1);
+				String slotSelection = (String) menu.purchaseInput(purchaseProductsArray(productKeys));
+				if (slotSelection != null){
+					System.out.println(machine.makePurchase(slotSelection.toUpperCase()));
+					System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
+				}
 				purchaseSwitch();
 			case PURCHASE_MENU_FINISH_TRANSACTION:
 				if (machine.getCurrentBalance().compareTo(new BigDecimal(0)) ==1){
@@ -107,5 +118,18 @@ public class VendingMachineCLI {
 				}
 				mainMenu();
 		}
+	}
+
+	public String[] purchaseProductsArray(String productKeys){
+		String[] productKeysArray = productKeys.split(", ");
+		Arrays.sort(productKeysArray);
+		String[] productValues = new String[productKeysArray.length];
+		Map<String, Product> productMap = machine.getProducts();
+		for (int i = 0; i < productKeysArray.length; i++){
+			if (productMap.containsKey(productKeysArray[i])){
+				productValues[i] = productMap.get(productKeysArray[i]).getSlot() + ": " + productMap.get(productKeysArray[i]).getName();
+			}
+		}
+		return productValues;
 	}
 }

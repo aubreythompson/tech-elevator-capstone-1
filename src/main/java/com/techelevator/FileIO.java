@@ -72,4 +72,24 @@ public class FileIO {
         }
         return false;
     }
+
+    public HashMap<String, Integer> readSalesLog(String file){
+        HashMap<String, Integer> salesLog = new HashMap<>();
+
+        //attempt to read old sales log, place info into a hashmap
+        try (Scanner fileScanner = new Scanner(new File(file))){
+            while (fileScanner.hasNextLine()){
+                String[] line = fileScanner.nextLine().split("\\|");
+                try{
+                    salesLog.put(line[0], Integer.parseInt(line[1]));
+                } catch (NumberFormatException e){
+                    System.out.println("Error reading previous days sales log");
+                }
+            }
+        } catch (FileNotFoundException e){
+            System.out.println("Sales log not found");
+        }
+
+        return salesLog;
+    }
 }

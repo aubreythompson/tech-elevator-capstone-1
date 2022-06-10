@@ -127,4 +127,8 @@ public class VendingMachine {
     public void writeSalesLog(String fileName){
         fileIO.read_WritePersistentSalesLog(fileName, this.namesOfItemSold);
     }
+
+    public HashMap<String,Integer> readSalesLog(String fileName){
+        return fileIO.readSalesLog(fileName);
+    }
 }

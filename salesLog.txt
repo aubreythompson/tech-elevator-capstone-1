@@ -1,4 +1,6 @@
-Cola|4
-U-Chews|3
-Dr. Salt|3
-Little League Chew|1
+Cola|5
+Moonpie|1
+Triplemint|1
+U-Chews|4
+Dr. Salt|4
+Little League Chew|3
