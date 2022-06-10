@@ -22,32 +22,7 @@ missing functionality:
 
 bugs:
 
-    - continue to test makeChange
-
 fine but ideally should be cleaner:
-
-    //Totally agree with giving the user the ability to manually pick their slot. For immediate purposes I figured how we have it now
-    //could be useful for testing, but ya adding that menu functionality is something I totally agree with doing.
-    //I can mess around and see what I can come up with tomorrow if you don't get to it before me. Which I did just realize
-    //me being an idiot figured out how to alphanumerically sort the presented list that we plan on getting rid of.
-    //why did I do that to myself haha :/
-    //For the approaches below, product keys being the slot would totally work right? they're already assigned to the slot, so we'd just use
-    //a string they enter as the key to search for.
-- With the way the menu class is written (as I understand it) we pass it a list of options and it displays those options
-in a numbered list, and the user gives a number to select and option.
-The instructions say the user should give a product code to select the option (which I interpreted to be the slot, like
-on an irl vending machine). so the way it is currently displays a numbered list of product codes. that seems very silly.
-I made the list of products in vending machine a map with keys as the slot so we could get products by their code.
-(aside: we should standardize the use of code/slot :P my bad)
-We could
--- write our own UI to take the actual product code as user input and ignore the menu class for that functionality
--- make the product keys something different, like the name, or the full string of the product?
--- if none of this makes sense don't worry about it, I can explain and/or work on it tomorrow!
-
-    //Think I got it in VendingMachineCLI now. It does indicate that null should always be false, but I'd say just leave it for now
-    //In case we think of some different way we have to go about getting the data when we make whatever potential changes
-    //to the UI
- - not sure what you mean - where does it say null should always be false? looks better!
 
     //I do agree. Let's get all the functionality in the program first, make sure we break proof it as much as we can, and then
     //I'm totally down to figure out how to go about displaying things in a less depressing way haha

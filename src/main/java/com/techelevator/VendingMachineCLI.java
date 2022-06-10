@@ -40,10 +40,8 @@ public class VendingMachineCLI {
 	}
 
 	public void mainMenu() {
-		/** is this while loop important? lol */
-		//It's what keeps the menu from shutting down after they reach the end of the switch statements
 		while (true) {
-			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS,true,3);
 
 			switch (choice) {
 				case MAIN_MENU_OPTION_DISPLAY_ITEMS:
@@ -82,12 +80,12 @@ public class VendingMachineCLI {
 	}
 
 	public void purchaseSwitch(){
-		String choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+		String choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS,false,0);
 
 		switch (choice){
 			case PURCHASE_MENU_FEED_MONEY:
 				System.out.println(ENTER_MONEY_TO_FEED);
-				String moneyFeed = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS);
+				String moneyFeed = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS,false,0);
 				if (moneyFeed.equals(FEED_MONEY_OPTIONS[7]))
 					mainMenu();
 				if (moneyFeed.equals(FEED_MONEY_OPTIONS[8]))

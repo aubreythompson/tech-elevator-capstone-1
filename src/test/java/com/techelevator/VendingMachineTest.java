@@ -17,12 +17,8 @@ public class VendingMachineTest {
     private double TEST_PRODUCT_PRICE = 3.05;
     private String TEST_PRODUCT_TYPE = "Chip";
 
-    @Before
-    public void setup() {
 
-    }
-
-    //constructor
+    /** constructor test*/
     @Test
     public void constructor_creates_expected_product_list() {
         VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
@@ -40,7 +36,7 @@ public class VendingMachineTest {
     }
 
 
-    //dispenseProduct
+    /**dispenseProduct tests*/
     @Test
     public void dispense_product_decreases_product_quantity_by_1_given_starting_quantity() {
         //given
@@ -74,7 +70,7 @@ public class VendingMachineTest {
     }
 
 
-    //makeChange
+    /**makeChange tests*/
     @Test
     public void make_change_gives_4_quarters_when_fed_1_dollar_as_string() {
         //given
@@ -159,20 +155,19 @@ public class VendingMachineTest {
     }
 
 
-    //feedMoney
+    /**feedMoney tests*/
     ///feed negative
     ///feed zero
     ///feed String
     ///feed int
     ///feed double
 
-    //addToLog
+    /** addToLog tests*/
     ///feedmoney adds to log
     ///makechange adds to log
     ///makepurchase adds to log
 
-    //makePurchase
-
+    /**makePurchase tests*/
     @Test
     public void make_purchase_returns_product_not_found_given_invalid_product_code() {
         VendingMachine machine = new VendingMachine("vendingmachinetest.csv");
@@ -237,7 +232,5 @@ public class VendingMachineTest {
         Assert.assertEquals(1.95,machine.getCurrentBalance().floatValue(),.001);
     }
 
-
-
-    //writeSalesLog
+    //writeSalesLog - just calls fileIO method so can skip?
 }

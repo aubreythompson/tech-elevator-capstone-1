@@ -1,5 +1,6 @@
-Cola|4
-Triplemint|1
+Cola|5
+Cloud Popcorn|1
+Triplemint|2
 U-Chews|3
 Dr. Salt|3
 Little League Chew|1
