@@ -59,20 +59,24 @@ public class VendingMachine {
 
     public String makePurchase(String productCode) {
         Product product = this.products.get(productCode);
-        if (getCurrentBalance().compareTo(new BigDecimal(product.getPrice())) >= 0) {
-             boolean purchaseSuccessful = this.dispenseProduct(productCode);
-             if (purchaseSuccessful) {
-                 BigDecimal oldBalance = getCurrentBalance();
-                 this.currentBalance = this.currentBalance.subtract(new BigDecimal(product.getPrice())).setScale(2, RoundingMode.HALF_EVEN);
-                 BigDecimal newBalance = this.currentBalance;
-                 this.addToLog(oldBalance,newBalance,product.getName() + " " + product.getSlot());
-                 this.namesOfItemSold.add(product.getName());
-                 return "You've purchased " + product.getName() + " for " + NumberFormat.getCurrencyInstance().format(product.getPrice()) + "! " + product.getReturnMessage();
-             } else {
-                 return product.getName() + " is sold out! Please try again.";
-             }
+        if (product!=null) {
+            if (getCurrentBalance().compareTo(new BigDecimal(product.getPrice())) >= 0) {
+                boolean purchaseSuccessful = this.dispenseProduct(productCode);
+                if (purchaseSuccessful) {
+                    BigDecimal oldBalance = getCurrentBalance();
+                    this.currentBalance = this.currentBalance.subtract(new BigDecimal(product.getPrice())).setScale(2, RoundingMode.HALF_EVEN);
+                    BigDecimal newBalance = this.currentBalance;
+                    this.addToLog(oldBalance, newBalance, product.getName() + " " + product.getSlot());
+                    this.namesOfItemSold.add(product.getName());
+                    return "You've purchased " + product.getName() + " for " + NumberFormat.getCurrencyInstance().format(product.getPrice()) + "! " + product.getReturnMessage();
+                } else {
+                    return product.getName() + " is sold out! Please try again.";
+                }
+            } else {
+                return "Insufficient funds. Please try again.";
+            }
         } else {
-            return "Insufficient funds. Please try again.";
+            return "Product not found. Please try again.";
         }
     }
 
