@@ -73,7 +73,11 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return slot + " | " + name + " | " + price + " | " + quantity + " left";
+        if (!isSoldOut()){
+            return slot + " | " + name + " | " + price + " | " + quantity + " left";
+        } else {
+            return slot + " | " + name + " | " + price + " | " + " SOLD OUT";
+        }
     }
 
     @Override

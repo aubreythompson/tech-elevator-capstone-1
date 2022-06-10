@@ -1,27 +1,44 @@
 missing functionality:
 
-- log the date and time, sorry I was lazy :P
-- make the return message dollar formatted, lazy me again
-- indicate that the product is sold out when displaying the vending machine, not just say zero left
-- challenge bit
+- log the date and time, sorry I was lazy :P            //looks good finally. Weird bug took up some time
+- make the return message dollar formatted, lazy me again       //completed
+- indicate that the product is sold out when displaying the vending machine, not just say zero left     //Haven't extensively tested, but seems to work fine
+- challenge bit         //Haven't extensively tested either, but it does appear to be working well. update number sold if they are.
+                        //Keep an eye on it for a bit just in case it does something funky.
 
-- unit tests
--- rewrite read products because I broke it refactoring :|
--- logging
--- make change
--- feed money
--- dispense product
+- unit tests        //I imagine this'll be most of Friday's work. We can just divide up the different classes so we don't get clashes or do whatever.
+-- rewrite read products because I broke it refactoring :|      //haha, nothing to say but that's rough buddy.
+                                                                //https://c.tenor.com/W6gco8m0SIkAAAAC/avatar-the-last-airbender.gif
+-- logging  //Should be good to go. Again just something to keep an eye on
+-- make change      //I've tested the heck out of this, but every once in a while I was able to break it again, make another
+                    //change and seemingly fix it. Just keep an eye on it when testing other stuff. Occasionally see if the change
+                    //amount seems legit
+-- feed money       //basically same as make change, but this one has been more consistantly solid for me
+-- dispense product     //What's going on with this one?
 
-- handling erroneous user input? or do we think the menu class handles it well enough?
+- handling erroneous user input? or do we think the menu class handles it well enough?  //I think the menu is pretty good.
+                                                                                        //However, hardware does fail. RAM
+                                                                                        //is pretty reliable. Mass storage devices not so much.
+                                                                                        //You know they'll be picky, we gatta do it :/. Friday's looking like
+                                                                                        //keep trying to break our stuff and further fix it day.
 
 bugs:
 
+    //Think it's taken care of? Still keep an eye out. Main thing I learned tonight is java is messy when it comes to dealing with
+    //floating point numbers. More calculations your program handles before restarting, worse it seems to get.
 - trying to make a purchase with no funds makes the balance -$0.01 (or slightly off, according to the log).
 this seems to make the makeChange function break, e.g. given $2.69 it returned 10 quarters, 2 nickels and 5 pennies.
 (I assume that is the issue, maybe the makeChange function is broken in other cases, should test that.)
 
 fine but ideally should be cleaner:
 
+    //Totally agree with giving the user the ability to manually pick their slot. For immediate purposes I figured how we have it now
+    //could be useful for testing, but ya adding that menu functionality is something I totally agree with doing.
+    //I can mess around and see what I can come up with tomorrow if you don't get to it before me. Which I did just realize
+    //me being an idiot figured out how to alphanumerically sort the presented list that we plan on getting rid of.
+    //why did I do that to myself haha :/
+    //For the approaches below, product keys being the slot would totally work right? they're already assigned to the slot, so we'd just use
+    //a string they enter as the key to search for.
 - With the way the menu class is written (as I understand it) we pass it a list of options and it displays those options
 in a numbered list, and the user gives a number to select and option.
 The instructions say the user should give a product code to select the option (which I interpreted to be the slot, like
@@ -33,13 +50,21 @@ We could
 -- make the product keys something different, like the name, or the full string of the product?
 -- if none of this makes sense don't worry about it, I can explain and/or work on it tomorrow!
 
+    //Think I got it in VendingMachineCLI now. It does indicate that null should always be false, but I'd say just leave it for now
+    //In case we think of some different way we have to go about getting the data when we make whatever potential changes
+    //to the UI
+    //I did just realize though, probably need to add an option for the person to return to the purchase menu in case they hit the "feed money" option
+    //by accident
 - right now VendingMachine prints messages to the console (in method feedMoney) - I think ideally we would reserve that for VendingMachineCLI?
 the instructions say "Create as many of your classes as possible to be "testable" classes. Limit console input and output to as few classes as possible."
 
+    //I do agree. Let's get all the functionality in the program first, make sure we break proof it as much as we can, and then
+    //I'm totally down to figure out how to go about displaying things in a less depressing way haha
 - it would be fun/cute to display the vending machine more aesthetically
 
 
 Questions
+
+    //There probably is some other way that may be more optimal, but I'm not sure what it'd be as of right now.
 - is our code maximally loosely coupled? I changed it so that only VendingMachine interacts with IO like we have in
 our diagram. I think everything else needs to talk to each other?
-
