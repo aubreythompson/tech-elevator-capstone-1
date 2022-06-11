@@ -84,17 +84,21 @@ public class VendingMachineCLI {
 
 		switch (choice){
 			case PURCHASE_MENU_FEED_MONEY:
-				System.out.println(ENTER_MONEY_TO_FEED);
-				String moneyFeed = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS,false,0);
-				if (moneyFeed.equals(FEED_MONEY_OPTIONS[7]))
-					mainMenu();
-				if (moneyFeed.equals(FEED_MONEY_OPTIONS[8]))
-					purchaseSwitch();
-				if (moneyFeed.equals(null))
-					System.out.println(INVALID_DOLLAR_AMOUNT);
-				machine.feedMoney(moneyFeed);
-				System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
-				purchaseSwitch();
+				while (true){
+					System.out.println(ENTER_MONEY_TO_FEED);
+					String moneyFeed = (String) menu.getChoiceFromOptions(FEED_MONEY_OPTIONS,false,0);
+					if (moneyFeed.equals(FEED_MONEY_OPTIONS[7])) {
+						System.out.println(makeChangeDisplay());
+						mainMenu();
+					}
+					if (moneyFeed.equals(FEED_MONEY_OPTIONS[8]))
+						purchaseSwitch();
+					if (moneyFeed.equals(null))
+						System.out.println(INVALID_DOLLAR_AMOUNT);
+					machine.feedMoney(moneyFeed);
+					System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
+
+				}
 			case PURCHASE_MENU_SELECT_PRODUCT:
 				System.out.println(SELECT_PRODUCT_CODE);
 				String productKeys = machine.getProducts().keySet().toString();
@@ -108,12 +112,7 @@ public class VendingMachineCLI {
 				}
 				purchaseSwitch();
 			case PURCHASE_MENU_FINISH_TRANSACTION:
-				if (machine.getCurrentBalance().compareTo(new BigDecimal(0)) ==1){
-					int [] change = machine.makeChange();
-					System.out.println(CHANGE_PROVIDED + QUARTERS + change[0] + DIMES + change[1] + NICKELS + change[2] + PENNIES + change[3]);
-				} else{
-					System.out.println(NO_CHANGE);
-				}
+				System.out.println(makeChangeDisplay());
 				mainMenu();
 		}
 	}
@@ -130,4 +129,16 @@ public class VendingMachineCLI {
 		}
 		return productValues;
 	}
+
+	//method determines if change should be given and displays change dispensed (if eligible,) or displays that no change was dispensed.
+	public String makeChangeDisplay(){
+		BigDecimal test = machine.getCurrentBalance();
+		if (machine.getCurrentBalance().compareTo(new BigDecimal(0)) == 1){
+			int [] change = machine.makeChange();
+			return CHANGE_PROVIDED + QUARTERS + change[0] + DIMES + change[1] + NICKELS + change[2] + PENNIES + change[3];
+		} else{
+			return NO_CHANGE;
+		}
+	}
 }
+

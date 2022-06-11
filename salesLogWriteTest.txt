@@ -1,1 +1,6 @@
-Potato Crisps|4
+Cola|6
+Heavy|1
+Cloud Popcorn|1
+Potato Crisps|6
+Chips|15
+Testing Snacks|15

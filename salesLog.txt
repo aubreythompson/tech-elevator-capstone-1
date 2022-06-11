@@ -1,7 +1,10 @@
 Cola|6
-Heavy|1
+Heavy|2
 Cloud Popcorn|1
-Triplemint|2
+Potato Crisps|12
+Triplemint|3
 U-Chews|3
 Dr. Salt|3
 Little League Chew|1
+Chiclets|1
+Grain Waves|1

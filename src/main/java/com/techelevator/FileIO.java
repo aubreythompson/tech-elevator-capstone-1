@@ -22,6 +22,15 @@ public class FileIO {
     }
 
     public boolean writeLog(String file, List<String> logMessages) {
+        //catch null arguments
+        if (file == null){
+            return false;
+        }
+        //catch filePathway not existing or not being a file
+        if (!new File(file).exists() || !new File(file).isFile()){
+            return false;
+        }
+
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(file))) {
             if (logMessages!=null && !logMessages.isEmpty()){
                 for (String line : logMessages) {
@@ -39,23 +48,18 @@ public class FileIO {
         return false;
     }
 
-    public boolean read_WritePersistentSalesLog(String file, List<String> todaysSales){
-        HashMap<String, Integer> salesLog = new HashMap<>();
-
-        //attempt to read old sales log, place info into a hashmap
-        try (Scanner fileScanner = new Scanner(new File(file))){
-            while (fileScanner.hasNextLine()){
-                String[] line = fileScanner.nextLine().split("\\|");
-                try{
-                    salesLog.put(line[0], Integer.parseInt(line[1]));
-                } catch (NumberFormatException e){
-                    System.out.println("Error reading previous days sales log");
-                    return false;
-                }
-            }
-        } catch (FileNotFoundException e){
-            System.out.println("Sales log not found");
+    public boolean writePersistentSalesLog(String file, List<String> todaysSales){
+        //catch null arguments
+        if (file == null || todaysSales == null){
+            return false;
         }
+        //catch filePathway not existing or not being a file
+        if (!new File(file).exists() || !new File(file).isFile()){
+            return false;
+        }
+
+        //recieve old salesLog from readSalesLog Method
+        HashMap<String, Integer> salesLog = readSalesLog(file);
 
         //loop to add today's items to Sales log, or update amount sold if item already exists
         int valueTracker;
@@ -84,6 +88,10 @@ public class FileIO {
     public HashMap<String, Integer> readSalesLog(String file){
         HashMap<String, Integer> salesLog = new HashMap<>();
 
+        //catch null file
+        if (file == null)
+            return salesLog;
+
         //attempt to read old sales log, place info into a hashmap
         try (Scanner fileScanner = new Scanner(new File(file))){
             while (fileScanner.hasNextLine()){
@@ -92,6 +100,8 @@ public class FileIO {
                     salesLog.put(line[0], Integer.parseInt(line[1]));
                 } catch (NumberFormatException e){
                     System.out.println("Error reading previous days sales log");
+                    salesLog.clear();
+                    return salesLog;
                 }
             }
         } catch (FileNotFoundException e){

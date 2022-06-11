@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import java.text.NumberFormat;
 import java.util.Objects;
 
 public abstract class Product {
@@ -74,9 +75,9 @@ public abstract class Product {
     @Override
     public String toString() {
         if (!isSoldOut()){
-            return slot + " | " + name + " | " + price + " | " + quantity + " left";
+            return slot + " | " + name + " | " + NumberFormat.getCurrencyInstance().format(price) + " | " + quantity + " left";
         } else {
-            return slot + " | " + name + " | " + price + " | " + "SOLD OUT";
+            return slot + " | " + name + " | " + NumberFormat.getCurrencyInstance().format(price) + " | " + "SOLD OUT";
         }
     }
 

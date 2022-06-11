@@ -140,7 +140,7 @@ public class VendingMachine {
     }
 
     public boolean writeSalesLog(String fileName){
-        return fileIO.read_WritePersistentSalesLog(fileName, this.namesOfItemSold);
+        return fileIO.writePersistentSalesLog(fileName, this.namesOfItemSold);
     }
 
     public HashMap<String,Integer> readSalesLog(String fileName){

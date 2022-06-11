@@ -405,4 +405,17 @@ public class VendingMachineTest {
         //Assert.assertTrue(!salesLogWritten);
 
     }
+
+    @Test
+    public void readlogs_returns_proper_hashmap_given_appropriate_filePath(){
+        VendingMachine machine = new VendingMachine(TEST_MACHINE_FILE);
+
+        HashMap<String,Integer> actualMap = machine.readSalesLog("salesLogReadTest.txt");
+        HashMap<String,Integer> excpectedMap = new HashMap<>();
+        excpectedMap.put("Cola",6);
+        excpectedMap.put("Heavy",1);
+        excpectedMap.put("Cloud Popcorn",1);
+
+        Assert.assertArrayEquals(excpectedMap.entrySet().toArray(), actualMap.entrySet().toArray());
+    }
 }
