@@ -6,7 +6,12 @@ import java.util.*;
 public class FileIO {
 
 
-
+    /**
+     * Create list of String arrays, each of which represents a product.
+     * Represented as [code, name, price, type]
+     * @param file the csv file that represents the products
+     * @return list of String arrays products
+     */
     public List<String[]> readProducts(String file){
         List<String[]> products = new ArrayList<>();
         try (Scanner fileScanner = new Scanner(new File(file))) {
@@ -23,6 +28,12 @@ public class FileIO {
         return products;
     }
 
+    /**
+     *
+     * @param file to write the log to
+     * @param logMessages each line in the log from the vending machine
+     * @return boolean successfully written
+     */
     public boolean writeLog(String file, List<String> logMessages) {
         //catch null arguments
         if (file == null){
@@ -50,6 +61,12 @@ public class FileIO {
         return false;
     }
 
+    /**
+     * Read from the persistent sales log and update it with today's sales.
+     * @param file log file
+     * @param todaysSales String list of names of items sold
+     * @return boolean successfully written
+     */
     public boolean writePersistentSalesLog(String file, List<String> todaysSales){
         //catch null arguments
         if (file == null || todaysSales == null){
@@ -87,6 +104,11 @@ public class FileIO {
         return false;
     }
 
+    /**
+     * Interprets the current persistent sales log
+     * @param file
+     * @return the log as a hashmap of product name and quantity sold over time
+     */
     public HashMap<String, Integer> readSalesLog(String file){
         HashMap<String, Integer> salesLog = new HashMap<>();
 

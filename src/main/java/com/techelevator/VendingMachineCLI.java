@@ -18,7 +18,7 @@ public class VendingMachineCLI {
 	private static final String PURCHASE_MENU_FINISH_TRANSACTION = "Finish Transaction";
 	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_FEED_MONEY, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH_TRANSACTION};
 	private static final String ENTER_MONEY_TO_FEED = "Select Amount To Feed";
-	private static final String[] FEED_MONEY_OPTIONS = {"$1", "$2", "$5", "$10", "$20", "$50", "$100", "Return to Main Menu", "Return to Purchase Menu"};
+	private static final String[] FEED_MONEY_OPTIONS = {"$1", "$2", "$5", "$10", "$20", "$50", "$100", "Return to Main Menu (refunds current balance)", "Return to Purchase Menu"};
 	private static final String SELECT_PRODUCT_CODE = "Please select a product code:";
 	private static final String CURRENT_MONEY_PROVIDED = "\nCurrent Money Provided: ";
 	private static final String CHANGE_PROVIDED = "Change Provided:";
