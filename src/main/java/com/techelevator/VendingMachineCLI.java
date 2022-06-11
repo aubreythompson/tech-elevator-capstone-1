@@ -80,6 +80,7 @@ public class VendingMachineCLI {
 	}
 
 	public void purchaseSwitch(){
+		System.out.println(CURRENT_MONEY_PROVIDED+NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
 		String choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS,false,0);
 
 		switch (choice){
@@ -108,7 +109,7 @@ public class VendingMachineCLI {
 				String slotSelection = (String) menu.purchaseInput(purchaseProductsArray(productKeys));
 				if (slotSelection != null){
 					System.out.println(machine.makePurchase(slotSelection.toUpperCase()));
-					System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
+			//		System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
 				}
 				purchaseSwitch();
 			case PURCHASE_MENU_FINISH_TRANSACTION:
@@ -124,7 +125,7 @@ public class VendingMachineCLI {
 		Map<String, Product> productMap = machine.getProducts();
 		for (int i = 0; i < productKeysArray.length; i++){
 			if (productMap.containsKey(productKeysArray[i])){
-				productValues[i] = productMap.get(productKeysArray[i]).getSlot() + ": " + productMap.get(productKeysArray[i]).getName();
+				productValues[i] = productMap.get(productKeysArray[i]).getCode() + ": " + productMap.get(productKeysArray[i]).getName();
 			}
 		}
 		return productValues;

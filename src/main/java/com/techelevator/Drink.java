@@ -1,8 +1,8 @@
 package com.techelevator;
 
 public class Drink extends Product {
-    public Drink(String name,double price,String slot) {
-        super(name,price,slot,"Drink","Glug");
+    public Drink(String name,double price,String code) {
+        super(name,price,code,"Drink","Glug");
     }
 
 }

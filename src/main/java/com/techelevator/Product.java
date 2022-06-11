@@ -3,6 +3,13 @@ package com.techelevator;
 import java.text.NumberFormat;
 import java.util.Objects;
 
+/**
+ * Abstract product class. Extended by "types" Chip, Gum, Drink, and Candy. All products should be specified when
+ * constructed using the "create" function.
+ *
+ * Product is a class for storing data.
+ */
+
 public abstract class Product {
 
     private static final int STARTING_QUANTITY = 5;
@@ -10,14 +17,14 @@ public abstract class Product {
     private double price;
     private String name;
     private String sound;
-    private String slot;
+    private String code; //slot is used interchangeably with c
     private String type;
     private int quantity = STARTING_QUANTITY;
 
-    public Product(String name,double price,String slot,String type,String sound){
+    public Product(String name,double price,String code,String type,String sound){
         this.name = name;
         this.price = price;
-        this.slot = slot;
+        this.code = code;
         this.type = type;
         this.sound = sound;
     }
@@ -34,8 +41,8 @@ public abstract class Product {
         return sound + " " + sound + ", Yum!";
     }
 
-    public String getSlot() {
-        return slot;
+    public String getCode() {
+        return code;
     }
 
     public int getQuantity() {
@@ -57,16 +64,16 @@ public abstract class Product {
         return false;
     }
 
-    public static Product create(String name, double price, String slot, String type) {
+    public static Product create(String name, double price, String code, String type) {
         switch(type.toUpperCase()) {
             case "GUM":
-                return new Gum(name, price, slot);
+                return new Gum(name, price, code);
             case "CHIP":
-                return new Chip(name, price, slot);
+                return new Chip(name, price, code);
             case "DRINK":
-                return new Drink(name, price, slot);
+                return new Drink(name, price, code);
             case "CANDY":
-                return new Candy(name, price, slot);
+                return new Candy(name, price, code);
             default:
                 return null;
         }
@@ -75,9 +82,9 @@ public abstract class Product {
     @Override
     public String toString() {
         if (!isSoldOut()){
-            return slot + " | " + name + " | " + NumberFormat.getCurrencyInstance().format(price) + " | " + quantity + " left";
+            return code + " | " + name + " | " + NumberFormat.getCurrencyInstance().format(price) + " | " + quantity + " left";
         } else {
-            return slot + " | " + name + " | " + NumberFormat.getCurrencyInstance().format(price) + " | " + "SOLD OUT";
+            return code + " | " + name + " | " + NumberFormat.getCurrencyInstance().format(price) + " | " + "SOLD OUT";
         }
     }
 
@@ -86,11 +93,11 @@ public abstract class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Double.compare(product.price, price) == 0 && quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(sound, product.sound) && Objects.equals(slot, product.slot) && Objects.equals(type, product.type);
+        return Double.compare(product.price, price) == 0 && quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(sound, product.sound) && Objects.equals(code, product.code) && Objects.equals(type, product.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(price, name, sound, slot, type, quantity);
+        return Objects.hash(price, name, sound, code, type, quantity);
     }
 }

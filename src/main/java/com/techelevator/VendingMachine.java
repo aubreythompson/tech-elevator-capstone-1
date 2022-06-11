@@ -46,7 +46,7 @@ public class VendingMachine {
         Map<String,Product> products = new HashMap<>();
         for (String[] productArray : productsList) {
             Product product = Product.create(productArray[1],Double.parseDouble(productArray[2]),productArray[0],productArray[3]);
-            products.put(product.getSlot(),product);
+            products.put(product.getCode(),product);
         }
         this.products = products;
     }
@@ -107,7 +107,7 @@ public class VendingMachine {
                     BigDecimal oldBalance = getCurrentBalance();
                     this.currentBalance = this.currentBalance.subtract(new BigDecimal(product.getPrice())).setScale(2, RoundingMode.HALF_EVEN);
                     BigDecimal newBalance = this.currentBalance;
-                    this.addToLog(oldBalance, newBalance, product.getName() + " " + product.getSlot());
+                    this.addToLog(oldBalance, newBalance, product.getName() + " " + product.getCode());
                     this.namesOfItemSold.add(product.getName());
                     return "You've purchased " + product.getName() + " for " + NumberFormat.getCurrencyInstance().format(product.getPrice()) + "! " + product.getReturnMessage();
                 } else {

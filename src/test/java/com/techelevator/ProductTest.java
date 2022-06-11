@@ -73,7 +73,7 @@ public class ProductTest {
         Product chip = Product.create("Chips",.5,"A1","Chip");
 
         //when
-        String test = chip.getSlot();
+        String test = chip.getCode();
 
         //then
         Assert.assertEquals("A1", test);
