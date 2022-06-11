@@ -5,6 +5,8 @@ import java.util.*;
 
 public class FileIO {
 
+
+
     public List<String[]> readProducts(String file){
         List<String[]> products = new ArrayList<>();
         try (Scanner fileScanner = new Scanner(new File(file))) {

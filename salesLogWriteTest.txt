@@ -1,6 +1,6 @@
 Cola|6
 Heavy|1
 Cloud Popcorn|1
-Potato Crisps|6
-Chips|15
-Testing Snacks|15
+Potato Crisps|7
+Chips|16
+Testing Snacks|16

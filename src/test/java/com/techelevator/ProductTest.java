@@ -29,7 +29,7 @@ public class ProductTest {
         Assert.assertEquals("Crunch Crunch, Yum!",returnMessage);
     }
 
-    /**Test sold out*/
+    /**Test isSoldOut returns true when quantity is zero*/
     @Test
     public void product_of_quantity_zero_returns_sold_out_message() {
         //given
