@@ -3,6 +3,13 @@ package com.techelevator;
 import java.io.*;
 import java.util.*;
 
+/**
+ * This class interacts with external files for
+ * - reading products into the vending machine
+ * - writing the transaction log for an instance of the machine until it exits
+ * - a persistent record of number of each item sold
+ */
+
 public class FileIO {
 
 

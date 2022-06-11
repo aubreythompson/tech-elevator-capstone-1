@@ -6,6 +6,15 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.*;
 
+/**
+ * This is the user interface that interacts with the user and the vending machine class.
+ * The main menu allows the user to view the items in the machine, make a purchase*, and exit.
+ * It also has a hidden option, view sales log. This is accessed by choosing 4 on the main menu.
+ *
+ * *The purchase menu allows the user to feed money, select a product to purchase, and finish transaction (refunds
+ * money and returns to main menu).
+ */
+
 public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -49,8 +58,6 @@ public class VendingMachineCLI {
 
 					//Replaces displaying products via hashmap with displaying products via a list
 					//this way they can be displayed in order alphanumerically by slot
-					//seems to update fine from testing
-					//still left getproducts returning a hashmap though (assumed you made it that way with intent for future use)
 					for (Product product : machine.getProducts().values()) {
 						productList.add(product.toString());
 					}
@@ -70,7 +77,7 @@ public class VendingMachineCLI {
 				case SUPER_SECRET_SALES_LOG:
 					HashMap<String, Integer> logMap = machine.readSalesLog(VENDING_MACHINE_SALES_LOG_FILE);
 					String totalSales = logMap.entrySet().toString();
-					totalSales = totalSales.substring(1, totalSales.length()-1);
+					totalSales = totalSales.substring(1, totalSales.length()-1); /**I forget what this substring is for, can you explain?*/
 					String[] totalSalesArray = totalSales.split(", ");
 					for (String line : totalSalesArray){
 						System.out.println(line.replace("=", "|"));
@@ -108,8 +115,11 @@ public class VendingMachineCLI {
 				productKeys = productKeys.substring(1, productKeys.length()-1);
 				String slotSelection = (String) menu.purchaseInput(purchaseProductsArray(productKeys));
 				if (slotSelection != null){
+					//makePurchase returns a String telling the user whether their purchase was successful
 					System.out.println(machine.makePurchase(slotSelection.toUpperCase()));
 			//		System.out.println(CURRENT_MONEY_PROVIDED + NumberFormat.getCurrencyInstance().format(machine.getCurrentBalance()));
+					/**commented the above out because we need to display this with every puchase menu, and we
+					 * go back to the purchase menu right after this, so I believe it's fully redundant */
 				}
 				purchaseSwitch();
 			case PURCHASE_MENU_FINISH_TRANSACTION:
@@ -118,6 +128,13 @@ public class VendingMachineCLI {
 		}
 	}
 
+	/**
+	 *Creates array of Strings
+	 * product codes (called keys here): productName
+	 * this is used as the display when the user selects "Select Product"
+	 * @param productKeys all the product codes in the machine
+	 * @return productValues - String array described above to pass to the menu functionality
+	 */
 	public String[] purchaseProductsArray(String productKeys){
 		String[] productKeysArray = productKeys.split(", ");
 		Arrays.sort(productKeysArray);
@@ -131,7 +148,10 @@ public class VendingMachineCLI {
 		return productValues;
 	}
 
-	//method determines if change should be given and displays change dispensed (if eligible,) or displays that no change was dispensed.
+	/** determines if change should be given and displays change dispensed (if eligible,) or displays that no change was dispensed.
+	 *
+	 * @return change message
+	 */
 	public String makeChangeDisplay(){
 		BigDecimal test = machine.getCurrentBalance();
 		if (machine.getCurrentBalance().compareTo(new BigDecimal(0)) == 1){

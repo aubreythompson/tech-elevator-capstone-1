@@ -7,7 +7,7 @@ import java.util.Objects;
  * Abstract product class. Extended by "types" Chip, Gum, Drink, and Candy. All products should be specified when
  * constructed using the "create" function.
  *
- * Product is a class for storing data.
+ * Product is a class for storing data. VendingMachine stores a list of Products (a map with key productCode).
  */
 
 public abstract class Product {
@@ -17,7 +17,7 @@ public abstract class Product {
     private double price;
     private String name;
     private String sound;
-    private String code; //slot is used interchangeably with c
+    private String code;
     private String type;
     private int quantity = STARTING_QUANTITY;
 

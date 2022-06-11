@@ -53,6 +53,11 @@ public class Menu {
 		out.flush();
 	}
 
+	/**Displays menu options for purchase specifically
+	 * The following two functions were added so the user could select products via the product code
+	 *
+	 * @param options
+	 */
 	public void purchaseMenuOptions(Object[] options){
 		out.println();
 		for (int i = 0; i < options.length; i++){
@@ -62,6 +67,11 @@ public class Menu {
 		out.flush();
 	}
 
+	/**
+	 * Gets user input and returns the product code choice if it is valid
+	 * @param options
+	 * @return
+	 */
 	public Object purchaseInput(String[] options){
 		Object choice = null;
 
@@ -69,7 +79,7 @@ public class Menu {
 		String userInput = in.nextLine();
 		choice = userInput;
 		for (String key : options){
-			if (key.substring(0,2).toUpperCase().equals(choice.toString().toUpperCase())){
+			if (key.substring(0,2).toUpperCase().equals(choice.toString().toUpperCase())){ //gets just the product code
 				return choice;
 			}
 		}

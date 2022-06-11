@@ -15,16 +15,18 @@ missing functionality:
                                                                                         -- as long as we use the menu class, which I guess we are considering not ...
 
 
+
 bugs:
 
 fine but ideally should be cleaner:
-
     //I do agree. Let's get all the functionality in the program first, make sure we break proof it as much as we can, and then
     //I'm totally down to figure out how to go about displaying things in a less depressing way haha
 - it would be fun/cute to display the vending machine more aesthetically
 
 
 Questions
+
+documented: lines 80 and 121 in VendingMachineCLI
 
     //There probably is some other way that may be more optimal, but I'm not sure what it'd be as of right now.
 - is our code maximally loosely coupled? I changed it so that only VendingMachine interacts with IO like we have in
